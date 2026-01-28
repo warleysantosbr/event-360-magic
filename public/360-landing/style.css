@@ -323,7 +323,7 @@ section {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-xl);
-  animation: fadeInUp 0.3s ease forwards;
+  animation: fadeInUp 0.15s ease forwards;
 }
 
 .badge-dot {
@@ -340,7 +340,7 @@ section {
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin-bottom: var(--spacing-lg);
-  animation: fadeInUp 0.3s ease 0.05s forwards;
+  animation: fadeInUp 0.15s ease 0.02s forwards;
   opacity: 0;
 }
 
@@ -349,12 +349,12 @@ section {
   color: var(--color-text-secondary);
   max-width: 500px;
   margin: 0 auto var(--spacing-xl);
-  animation: fadeInUp 0.3s ease 0.1s forwards;
+  animation: fadeInUp 0.15s ease 0.04s forwards;
   opacity: 0;
 }
 
 .btn-hero {
-  animation: fadeInUp 0.3s ease 0.15s forwards;
+  animation: fadeInUp 0.15s ease 0.06s forwards;
   opacity: 0;
 }
 
@@ -374,7 +374,7 @@ section {
    ============================================ */
 .reels-gallery {
   margin-top: var(--spacing-2xl);
-  animation: fadeInUp 0.3s ease 0.2s forwards;
+  animation: fadeInUp 0.15s ease 0.08s forwards;
   opacity: 0;
   padding: 0 var(--spacing-md);
 }
