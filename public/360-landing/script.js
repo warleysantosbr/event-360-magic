@@ -84,42 +84,62 @@ document.addEventListener('DOMContentLoaded', function() {
   checkVisibility();
 
   /* ============================================
-     GALLERY AUTO-SCROLL (Optional Enhancement)
+     REELS LIKE ANIMATION
      ============================================ */
-  const galleryScroll = document.querySelector('.gallery-scroll');
+  const likeButtons = document.querySelectorAll('.reel-action.like-btn');
   
-  if (galleryScroll) {
+  likeButtons.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      this.classList.toggle('liked');
+      
+      // Update SVG fill
+      const svg = this.querySelector('svg');
+      if (this.classList.contains('liked')) {
+        svg.setAttribute('fill', '#ff3040');
+      } else {
+        svg.setAttribute('fill', 'currentColor');
+      }
+    });
+  });
+
+  /* ============================================
+     REELS GALLERY DRAG SCROLL
+     ============================================ */
+  const reelsContainer = document.querySelector('.reels-container');
+  
+  if (reelsContainer) {
     let isScrolling = false;
     let startX;
     let scrollLeft;
     
-    galleryScroll.addEventListener('mousedown', function(e) {
+    reelsContainer.addEventListener('mousedown', function(e) {
       isScrolling = true;
-      startX = e.pageX - galleryScroll.offsetLeft;
-      scrollLeft = galleryScroll.scrollLeft;
-      galleryScroll.style.cursor = 'grabbing';
+      startX = e.pageX - reelsContainer.offsetLeft;
+      scrollLeft = reelsContainer.scrollLeft;
+      reelsContainer.style.cursor = 'grabbing';
     });
     
-    galleryScroll.addEventListener('mouseleave', function() {
+    reelsContainer.addEventListener('mouseleave', function() {
       isScrolling = false;
-      galleryScroll.style.cursor = 'grab';
+      reelsContainer.style.cursor = 'grab';
     });
     
-    galleryScroll.addEventListener('mouseup', function() {
+    reelsContainer.addEventListener('mouseup', function() {
       isScrolling = false;
-      galleryScroll.style.cursor = 'grab';
+      reelsContainer.style.cursor = 'grab';
     });
     
-    galleryScroll.addEventListener('mousemove', function(e) {
+    reelsContainer.addEventListener('mousemove', function(e) {
       if (!isScrolling) return;
       e.preventDefault();
-      const x = e.pageX - galleryScroll.offsetLeft;
+      const x = e.pageX - reelsContainer.offsetLeft;
       const walk = (x - startX) * 2;
-      galleryScroll.scrollLeft = scrollLeft - walk;
+      reelsContainer.scrollLeft = scrollLeft - walk;
     });
     
     // Set initial cursor
-    galleryScroll.style.cursor = 'grab';
+    reelsContainer.style.cursor = 'grab';
   }
 
   /* ============================================
