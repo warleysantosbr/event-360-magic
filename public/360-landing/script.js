@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   /* ============================================
-     SCROLL ANIMATIONS - FASTER
+     SCROLL ANIMATIONS - INSTANT
      ============================================ */
   const animatedElements = document.querySelectorAll('.requirement-card, .benefit-card, .step-card, .pricing-card');
   
   function checkVisibility() {
-    const triggerBottom = window.innerHeight * 0.9;
+    const triggerBottom = window.innerHeight * 0.95;
     
     animatedElements.forEach(function(element) {
       const elementTop = element.getBoundingClientRect().top;
@@ -71,11 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Set initial state - FASTER transitions
+  // Set initial state - INSTANT transitions
   animatedElements.forEach(function(element, index) {
     element.style.opacity = '0';
-    element.style.transform = 'translateY(15px)';
-    element.style.transition = 'opacity 0.25s ease ' + (index * 0.05) + 's, transform 0.25s ease ' + (index * 0.05) + 's';
+    element.style.transform = 'translateY(10px)';
+    element.style.transition = 'opacity 0.12s ease ' + (index * 0.02) + 's, transform 0.12s ease ' + (index * 0.02) + 's';
   });
   
   // Check on scroll and load
