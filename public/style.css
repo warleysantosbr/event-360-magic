@@ -418,40 +418,40 @@ section {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Scroll hint arrows */
+/* Scroll hint arrows - small and discreet */
 .reels-scroll-hint {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
-  background: rgba(0, 0, 0, 0.4);
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.4);
   z-index: 10;
   pointer-events: none;
-  animation: hintPulse 2s ease-in-out infinite;
+  animation: hintPulse 3s ease-in-out infinite;
 }
 
 .reels-hint-left {
-  left: 0;
+  left: 4px;
 }
 
 .reels-hint-right {
-  right: 0;
+  right: 4px;
 }
 
 .reels-scroll-hint svg {
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
 }
 
 @keyframes hintPulse {
-  0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
-  50% { opacity: 0.9; transform: translateY(-50%) scale(1.1); }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
 }
 
 .reels-gallery {
