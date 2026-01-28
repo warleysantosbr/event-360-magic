@@ -354,8 +354,27 @@ section {
 }
 
 .btn-hero {
-  animation: fadeInUp 0.15s ease 0.06s forwards;
+  animation: fadeInUp 0.15s ease 0.06s forwards, btnPulse 2s ease-in-out infinite 0.5s;
   opacity: 0;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+@keyframes btnPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: var(--shadow-glow);
+  }
+  50% { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 50px rgba(212, 168, 83, 0.4);
+  }
+}
+
+.btn-hero:hover {
+  animation: none;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 60px rgba(212, 168, 83, 0.4);
 }
 
 .hero-glow {
@@ -372,12 +391,6 @@ section {
 /* ============================================
    REELS GALLERY - Instagram Style
    ============================================ */
-.reels-gallery {
-  margin-top: var(--spacing-2xl);
-  animation: fadeInUp 0.15s ease 0.08s forwards;
-  opacity: 0;
-  padding: 0 var(--spacing-md);
-}
 
 .reels-container {
   display: flex;
@@ -397,12 +410,56 @@ section {
   flex-shrink: 0;
   scroll-snap-align: center;
   position: relative;
-  width: 140px;
-  height: 248px;
+  width: 160px;
+  height: 284px;
   background: #000;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Scroll hint arrows */
+.reels-scroll-hint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+  z-index: 10;
+  pointer-events: none;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+.reels-hint-left {
+  left: 0;
+}
+
+.reels-hint-right {
+  right: 0;
+}
+
+.reels-scroll-hint svg {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+  50% { opacity: 0.9; transform: translateY(-50%) scale(1.1); }
+}
+
+.reels-gallery {
+  margin-top: var(--spacing-2xl);
+  animation: fadeInUp 0.15s ease 0.08s forwards;
+  opacity: 0;
+  padding: 0 var(--spacing-md);
+  position: relative;
 }
 
 .reel-video {
@@ -482,14 +539,19 @@ section {
     font-size: var(--font-size-xl);
   }
   
+  .btn-hero {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-base);
+  }
+  
   .reels-container {
     justify-content: center;
     gap: 16px;
   }
   
   .reel-card {
-    width: 180px;
-    height: 320px;
+    width: 200px;
+    height: 356px;
   }
   
   .reel-action {
@@ -497,7 +559,11 @@ section {
     height: 24px;
   }
   
-  .reel-actions {
+  .reels-scroll-hint {
+    display: none;
+  }
+  
+  .reels-actions {
     gap: 14px;
     right: 10px;
   }
