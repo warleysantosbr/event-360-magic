@@ -525,6 +525,107 @@
       </div>
     </footer>
 
-    <script src="/script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        /* RANDOMIZE REELS VIDEOS */
+        const reelsContainer = document.getElementById('reelsContainer');
+        const videoSources = [
+          '/videos/video1.mp4',
+          '/videos/video2.mp4',
+          '/videos/video3.mp4',
+          '/videos/video4.mp4',
+          '/videos/video5.mp4',
+          '/videos/video6.mp4',
+          '/videos/video7.mp4',
+          '/videos/video8.mp4',
+          '/videos/video9.mp4'
+        ];
+        
+        function shuffleArray(array) {
+          const shuffled = [...array];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          return shuffled;
+        }
+        
+        function createReelCard(videoSrc) {
+          return '<div class="reel-card"><video class="reel-video" autoplay loop muted playsinline><source src="' + videoSrc + '" type="video/mp4"></video><div class="reel-overlay"></div><div class="reel-ui"><div class="reel-actions"><div class="reel-action like-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div><div class="reel-action"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div></div></div></div>';
+        }
+        
+        if (reelsContainer) {
+          const shuffledVideos = shuffleArray(videoSources);
+          reelsContainer.innerHTML = shuffledVideos.map(createReelCard).join('');
+        }
+
+        /* FAQ ACCORDION */
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(function(item) {
+          const question = item.querySelector('.faq-question');
+          question.addEventListener('click', function() {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(function(otherItem) {
+              otherItem.classList.remove('active');
+              otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+            if (!isActive) {
+              item.classList.add('active');
+              question.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+
+        /* SMOOTH SCROLL */
+        document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+              e.preventDefault();
+              const target = document.querySelector(href);
+              if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+
+        /* LIKE BUTTON */
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.like-btn')) {
+            const btn = e.target.closest('.like-btn');
+            btn.classList.toggle('liked');
+            const svg = btn.querySelector('svg');
+            svg.setAttribute('fill', btn.classList.contains('liked') ? '#ff3040' : 'currentColor');
+          }
+        });
+
+        /* REELS DRAG SCROLL */
+        const container = document.querySelector('.reels-container');
+        if (container) {
+          let isScrolling = false, startX, scrollLeft;
+          container.style.cursor = 'grab';
+          container.addEventListener('mousedown', function(e) {
+            isScrolling = true;
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+            container.style.cursor = 'grabbing';
+          });
+          container.addEventListener('mouseleave', function() { isScrolling = false; container.style.cursor = 'grab'; });
+          container.addEventListener('mouseup', function() { isScrolling = false; container.style.cursor = 'grab'; });
+          container.addEventListener('mousemove', function(e) {
+            if (!isScrolling) return;
+            e.preventDefault();
+            container.scrollLeft = scrollLeft - ((e.pageX - container.offsetLeft) - startX) * 2;
+          });
+        }
+
+        /* WHATSAPP TRACKING */
+        document.querySelectorAll('a[href*="wa.me"]').forEach(function(link) {
+          link.addEventListener('click', function() {
+            if (typeof gtag === 'function') gtag('event', 'click', { 'event_category': 'WhatsApp', 'event_label': 'CTA Click' });
+            if (typeof fbq === 'function') fbq('track', 'Contact');
+          });
+        });
+      });
+    </script>
   </body>
 </html>
