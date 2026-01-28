@@ -759,88 +759,127 @@ section {
 }
 
 /* ============================================
-   BOOKING SECTION
+   BOOKING SECTION - TIMELINE DESIGN
    ============================================ */
 .booking-section {
   background: var(--color-bg-secondary);
 }
 
-.booking-steps {
+.booking-timeline {
   display: grid;
-  gap: var(--spacing-md);
-  max-width: 800px;
+  gap: var(--spacing-lg);
+  max-width: 600px;
   margin: 0 auto;
+  position: relative;
 }
 
-.step-card {
+.timeline-step {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+  position: relative;
+  padding: var(--spacing-lg);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-lg);
-  text-align: center;
-  transition: all var(--transition-base);
+  transition: all var(--transition-fast);
 }
 
-.step-card:hover {
+.timeline-step:hover {
   border-color: var(--color-accent);
+  transform: translateX(8px);
 }
 
-.step-card.step-urgent {
-  border-color: var(--color-urgent);
-  background: rgba(239, 68, 68, 0.1);
+.timeline-step::before {
+  content: '';
+  position: absolute;
+  left: 35px;
+  top: 100%;
+  width: 2px;
+  height: var(--spacing-lg);
+  background: linear-gradient(to bottom, var(--color-accent), transparent);
 }
 
-.step-card.step-urgent .step-number {
-  background: var(--color-urgent);
+.timeline-step:last-child::before {
+  display: none;
 }
 
-.step-number {
-  width: 40px;
-  height: 40px;
-  background: var(--color-accent);
-  color: var(--color-bg);
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  border-radius: 50%;
+.timeline-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto var(--spacing-md);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
-.step-title {
-  font-size: var(--font-size-base);
+.timeline-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--color-bg);
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-number {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-accent);
+  background: rgba(212, 175, 55, 0.15);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--spacing-xs);
+}
+
+.timeline-title {
+  font-size: var(--font-size-lg);
   font-weight: 600;
   margin-bottom: var(--spacing-xs);
 }
 
-.step-text {
+.timeline-text {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
+  margin: 0;
 }
 
-.step-connector {
-  display: none;
+/* Urgent Step */
+.timeline-step.timeline-urgent {
+  border-color: var(--color-urgent);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.02));
+}
+
+.timeline-step.timeline-urgent .timeline-icon {
+  background: linear-gradient(135deg, var(--color-urgent), #dc2626);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  animation: pulse-urgent 2s ease-in-out infinite;
+}
+
+.timeline-badge {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-urgent);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--spacing-xs);
+}
+
+@keyframes pulse-urgent {
+  0%, 100% { box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
+  50% { box-shadow: 0 4px 25px rgba(239, 68, 68, 0.5); }
 }
 
 .booking-cta {
   text-align: center;
   margin-top: var(--spacing-2xl);
-}
-
-@media (min-width: 768px) {
-  .booking-steps {
-    grid-template-columns: repeat(4, 1fr);
-    align-items: start;
-    gap: var(--spacing-sm);
-  }
-  
-  .step-connector {
-    display: block;
-    height: 2px;
-    background: var(--color-border);
-    margin-top: 60px;
-  }
 }
 
 /* ============================================
@@ -901,7 +940,35 @@ section {
 .pricing-name {
   font-size: var(--font-size-xl);
   font-weight: 700;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.price-currency {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.price-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.pricing-featured .price-value {
+  font-size: 3rem;
 }
 
 .pricing-description {
